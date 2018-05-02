@@ -1,0 +1,22 @@
+<%= render "layouts/header" %>
+<h1>Voici la liste des Gossips</h1>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nom de Gossips</th>
+        <th>Content</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @gossips.each do |gossip| %>
+      <tr>
+        <td><%= gossip.anonymous_author %></td>
+        <td><%= gossip.content %></td>
+        <td><a href="<%= edit_gossip_path(gossip.id) %>">Modifier</a></td>
+        <td><a href="<%= gossip_path(gossip.id) %>">Afficher</a></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>

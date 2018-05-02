@@ -1,0 +1,63 @@
+<%= render "layouts/header" %>
+<h1>A propos de lui</h1>
+<div class="row">
+    <div class="col-md-3" style="background-color:yellow; border-bottom:1px white solid;">
+       <h2> Nom :</h2>
+    </div>
+    <div class="col-md-9" style="background-color:pink; border-bottom:1px white solid;">
+    <span><%= @gossip.anonymous_author %></span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3" style="background-color:yellow;">
+       <h2> Content :</h2>
+    </div>
+    <div class="col-md-9" style="background-color:pink;">
+       <span><%= @gossip.content %></span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6" style="background-color:blue; text-align:center; color: white;">
+       <h2><a href="<%= edit_gossip_path(@gossip.id) %>">Modifier</a></h2>
+    </div>
+    <div class="col-md-6" style="background-color:red; text-align:center; color: white;">
+        <h2><%= link_to 'SUPPRIMER', @gossip, method: :delete %></h2>
+    </div>
+</div>
+
+<h1>Votre commentaire</h1>
+<form action="/gossips" method="post">
+    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+    <input name="id_gossip" type="hidden" value="<%= @gossip.id %>">
+    <div class="form-group">
+        <label for="inputdefault">Commentateur</label>
+        <input class="form-control" id="inputdefault" type="text" name="commentateur">
+    </div>
+    <div class="form-group">
+        <label for="inputlg">Commentaire</label>
+        <input class="form-control input-lg" id="inputlg" type="text" name="commentaire">
+    </div>
+    <div class="form-group">
+        <input class="form-control btn btn-primary" type="submit" name="valider" value="comment">
+    </div>
+</form>
+ 
+<h1>Nombre total du commentaire : <%= @comments.length %></h1>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Commentateur</th>
+        <th>Commentaires</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.anonymous_commentor %></td>
+        <td><%= comment.body %></td>
+        <td><a href="<%= edit_gossip_path(@gossip.id) %>">Modifier</a></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
